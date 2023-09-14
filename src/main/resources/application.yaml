@@ -1,0 +1,41 @@
+spring:
+  application:
+    name: ${sbas.name:sbas}
+  webflux:
+    base-path: ${sbas.context-path:/sbas}
+
+# logging and tracing
+logging:
+  pattern:
+    level: "%5p [${spring.application.name:sbas},%X{traceId:-},%X{spanId:-}] ${HOSTNAME}"
+  file:
+    name: ${sbas.log.dir:target/sbas.log}
+  level:
+    web: debug
+
+# spring boot admin server settings
+# spring.boot.admin.context-path: /sbas
+spring.boot.admin.monitor.status-interval: ${sbas.admin.pull.interval:60000}
+spring.boot.admin.ui.poll-timer.cache: ${sbas.admin.pull.interval:60000}
+spring.boot.admin.ui.poll-timer.datasource: ${sbas.admin.pull.interval:60000}
+spring.boot.admin.ui.poll-timer.gc: ${sbas.admin.pull.interval:60000}
+spring.boot.admin.ui.poll-timer.process: ${sbas.admin.pull.interval:60000}
+spring.boot.admin.ui.poll-timer.memory: ${sbas.admin.pull.interval:60000}
+spring.boot.admin.ui.poll-timer.threads: ${sbas.admin.pull.interval:60000}
+spring.boot.admin.ui.poll-timer.logfile: ${sbas.admin.pull.interval:60000}
+
+# spring boot admin client settings to monitor server as well
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+  info:
+    env:
+      enabled: true
+
+spring.boot.admin.client.url: ${sbac.admin.push.url:http://localhost:8080/sbas}
+spring.boot.admin.client.period: ${sbac.admin.push.interval:60000}
